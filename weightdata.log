@@ -1,0 +1,97 @@
+2024-03-05 15:35:25,950 Press space to read weight...
+2024-03-05 15:35:26,814 Modbus serial port connection established successfully.
+2024-03-05 15:35:26,814 Current transaction state - IDLE
+2024-03-05 15:35:26,814 Running transaction 1
+2024-03-05 15:35:26,814 SEND: 0x1 0x3 0x0 0x0 0x0 0xa 0xc5 0xcd
+2024-03-05 15:35:26,814 New Transaction state 'SENDING'
+2024-03-05 15:35:26,815 Changing transaction state from 'SENDING' to 'WAITING FOR REPLY'
+2024-03-05 15:35:26,866 Changing transaction state from 'WAITING FOR REPLY' to 'PROCESSING REPLY'
+2024-03-05 15:35:26,866 RECV: 0x1 0x3 0x14 0x0 0x0 0x0 0x1f 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x9b 0x91
+2024-03-05 15:35:26,867 Getting Frame - 0x3 0x14 0x0 0x0 0x0 0x1f 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1
+2024-03-05 15:35:26,867 Factory Response[ReadHoldingRegistersResponse: 3]
+2024-03-05 15:35:26,867 Frame advanced, resetting header!!
+2024-03-05 15:35:26,867 Adding transaction 1
+2024-03-05 15:35:26,867 Getting transaction 1
+2024-03-05 15:35:26,867 Changing transaction state from 'PROCESSING REPLY' to 'TRANSACTION_COMPLETE'
+2024-03-05 15:35:26,887 Weight read successfully: None
+2024-03-05 15:35:27,003 Modbus serial port connection closed.
+2024-03-05 15:35:41,592 Modbus serial port connection established successfully.
+2024-03-05 15:35:41,592 Current transaction state - IDLE
+2024-03-05 15:35:41,592 Running transaction 1
+2024-03-05 15:35:41,592 SEND: 0x1 0x3 0x0 0x0 0x0 0xa 0xc5 0xcd
+2024-03-05 15:35:41,592 New Transaction state 'SENDING'
+2024-03-05 15:35:41,593 Changing transaction state from 'SENDING' to 'WAITING FOR REPLY'
+2024-03-05 15:35:41,632 Changing transaction state from 'WAITING FOR REPLY' to 'PROCESSING REPLY'
+2024-03-05 15:35:41,632 RECV: 0x1 0x3 0x14 0x0 0x0 0x0 0x1f 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x9b 0x91
+2024-03-05 15:35:41,632 Getting Frame - 0x3 0x14 0x0 0x0 0x0 0x1f 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1
+2024-03-05 15:35:41,632 Factory Response[ReadHoldingRegistersResponse: 3]
+2024-03-05 15:35:41,632 Frame advanced, resetting header!!
+2024-03-05 15:35:41,632 Adding transaction 1
+2024-03-05 15:35:41,632 Getting transaction 1
+2024-03-05 15:35:41,632 Changing transaction state from 'PROCESSING REPLY' to 'TRANSACTION_COMPLETE'
+2024-03-05 15:35:41,637 Weight read successfully: None
+2024-03-05 15:35:41,752 Modbus serial port connection closed.
+2024-03-05 15:35:42,340 Modbus serial port connection established successfully.
+2024-03-05 15:35:42,341 Current transaction state - IDLE
+2024-03-05 15:35:42,341 Running transaction 1
+2024-03-05 15:35:42,341 SEND: 0x1 0x3 0x0 0x0 0x0 0xa 0xc5 0xcd
+2024-03-05 15:35:42,341 New Transaction state 'SENDING'
+2024-03-05 15:35:42,341 Changing transaction state from 'SENDING' to 'WAITING FOR REPLY'
+2024-03-05 15:35:42,395 Changing transaction state from 'WAITING FOR REPLY' to 'PROCESSING REPLY'
+2024-03-05 15:35:42,395 RECV: 0x1 0x3 0x14 0x0 0x0 0x0 0x1e 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0xca 0x1
+2024-03-05 15:35:42,396 Getting Frame - 0x3 0x14 0x0 0x0 0x0 0x1e 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1
+2024-03-05 15:35:42,396 Factory Response[ReadHoldingRegistersResponse: 3]
+2024-03-05 15:35:42,396 Frame advanced, resetting header!!
+2024-03-05 15:35:42,396 Adding transaction 1
+2024-03-05 15:35:42,396 Getting transaction 1
+2024-03-05 15:35:42,396 Changing transaction state from 'PROCESSING REPLY' to 'TRANSACTION_COMPLETE'
+2024-03-05 15:35:42,400 Weight read successfully: None
+2024-03-05 15:35:42,519 Modbus serial port connection closed.
+2024-03-05 15:35:42,795 Modbus serial port connection established successfully.
+2024-03-05 15:35:42,796 Current transaction state - IDLE
+2024-03-05 15:35:42,796 Running transaction 1
+2024-03-05 15:35:42,796 SEND: 0x1 0x3 0x0 0x0 0x0 0xa 0xc5 0xcd
+2024-03-05 15:35:42,796 New Transaction state 'SENDING'
+2024-03-05 15:35:42,796 Changing transaction state from 'SENDING' to 'WAITING FOR REPLY'
+2024-03-05 15:35:42,836 Changing transaction state from 'WAITING FOR REPLY' to 'PROCESSING REPLY'
+2024-03-05 15:35:42,836 RECV: 0x1 0x3 0x14 0x0 0x0 0x0 0x1e 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0xca 0x1
+2024-03-05 15:35:42,836 Getting Frame - 0x3 0x14 0x0 0x0 0x0 0x1e 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1
+2024-03-05 15:35:42,836 Factory Response[ReadHoldingRegistersResponse: 3]
+2024-03-05 15:35:42,836 Frame advanced, resetting header!!
+2024-03-05 15:35:42,836 Adding transaction 1
+2024-03-05 15:35:42,836 Getting transaction 1
+2024-03-05 15:35:42,836 Changing transaction state from 'PROCESSING REPLY' to 'TRANSACTION_COMPLETE'
+2024-03-05 15:35:42,841 Weight read successfully: None
+2024-03-05 15:35:42,956 Modbus serial port connection closed.
+2024-03-05 15:35:43,010 Modbus serial port connection established successfully.
+2024-03-05 15:35:43,010 Current transaction state - IDLE
+2024-03-05 15:35:43,010 Running transaction 1
+2024-03-05 15:35:43,010 SEND: 0x1 0x3 0x0 0x0 0x0 0xa 0xc5 0xcd
+2024-03-05 15:35:43,010 New Transaction state 'SENDING'
+2024-03-05 15:35:43,010 Changing transaction state from 'SENDING' to 'WAITING FOR REPLY'
+2024-03-05 15:35:43,050 Changing transaction state from 'WAITING FOR REPLY' to 'PROCESSING REPLY'
+2024-03-05 15:35:43,050 RECV: 0x1 0x3 0x14 0x0 0x0 0x0 0x1f 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x9b 0x91
+2024-03-05 15:35:43,050 Getting Frame - 0x3 0x14 0x0 0x0 0x0 0x1f 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1
+2024-03-05 15:35:43,050 Factory Response[ReadHoldingRegistersResponse: 3]
+2024-03-05 15:35:43,050 Frame advanced, resetting header!!
+2024-03-05 15:35:43,050 Adding transaction 1
+2024-03-05 15:35:43,050 Getting transaction 1
+2024-03-05 15:35:43,050 Changing transaction state from 'PROCESSING REPLY' to 'TRANSACTION_COMPLETE'
+2024-03-05 15:35:43,056 Weight read successfully: None
+2024-03-05 15:35:43,172 Modbus serial port connection closed.
+2024-03-05 15:35:43,287 Modbus serial port connection established successfully.
+2024-03-05 15:35:43,287 Current transaction state - IDLE
+2024-03-05 15:35:43,287 Running transaction 1
+2024-03-05 15:35:43,287 SEND: 0x1 0x3 0x0 0x0 0x0 0xa 0xc5 0xcd
+2024-03-05 15:35:43,287 New Transaction state 'SENDING'
+2024-03-05 15:35:43,287 Changing transaction state from 'SENDING' to 'WAITING FOR REPLY'
+2024-03-05 15:35:43,340 Changing transaction state from 'WAITING FOR REPLY' to 'PROCESSING REPLY'
+2024-03-05 15:35:43,340 RECV: 0x1 0x3 0x14 0x0 0x0 0x0 0x1f 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x9b 0x91
+2024-03-05 15:35:43,340 Getting Frame - 0x3 0x14 0x0 0x0 0x0 0x1f 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1
+2024-03-05 15:35:43,340 Factory Response[ReadHoldingRegistersResponse: 3]
+2024-03-05 15:35:43,340 Frame advanced, resetting header!!
+2024-03-05 15:35:43,340 Adding transaction 1
+2024-03-05 15:35:43,340 Getting transaction 1
+2024-03-05 15:35:43,340 Changing transaction state from 'PROCESSING REPLY' to 'TRANSACTION_COMPLETE'
+2024-03-05 15:35:43,345 Weight read successfully: None
+2024-03-05 15:35:43,467 Modbus serial port connection closed.

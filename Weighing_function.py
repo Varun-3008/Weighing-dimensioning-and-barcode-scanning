@@ -24,7 +24,7 @@ def weight_calculations(weight):
         logging.error("Invalid weight data format")
         
         
-def setup_logging():
+def setup_loggingweight():
     # Configure logging to log to both file and console
     logging.basicConfig(filename='data.log', encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(message)s')
     console = logging.StreamHandler()
@@ -76,7 +76,7 @@ def on_space_pressed():
             print("Weight:", weight)
 
 def main():
-    setup_logging()
+    setup_loggingweight()
     logging.info("Press space to read weight...")
     keyboard.add_hotkey('space', on_space_pressed)
     keyboard.wait('esc')
