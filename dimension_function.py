@@ -41,7 +41,10 @@ def dimmension_calculations(dimensions):
             height = float(value)
     
     # Return extracted values as a tuple
-    return volume, length, width, height
+    boxvolume = length*width*height
+    if volume/boxvolume >0.9:
+        isbox = True
+    return boxvolume, volume, length, width, height, isbox
 
 def dimension_data(ip, port, dimension_socket,conn,cursor,uuid_val):
     serveradd = (ip,port)
@@ -52,13 +55,14 @@ def dimension_data(ip, port, dimension_socket,conn,cursor,uuid_val):
         dim_data = dimension_socket.recv(1024)
         dimensions = dim_data.decode('utf-8')
         #dimensions = "volume=4402043.000000, length=273.372162, width=150.322479, height=118.000000, center.x=-26.884029, center.y=7.321197, center.z=1190.816406"
-        volume, length, width, height = dimmension_calculations(str(dimensions))
+        boxvolume, volume, length, width, height, isbox = dimmension_calculations(str(dimensions))
         
         if volume:
             try: 
-                cursor.execute("UPDATE profiling SET length_mm = %s, width_mm = %s, height_mm = %s, boxvolume1 = %s WHERE id = %s ", (length, width, height, volume, uuid_val))
+                cursor.execute("UPDATE profiling SET length_mm = %s, width_mm = %s, height_mm = %s, realvolume1 = %s, boxvolume1 = %s, isbox = %s WHERE id = %s", (length, width, height, volume, boxvolume, isbox,uuid_val))
                 conn.commit()
                 print("Dimension data sucessfully inserted.")
+                return boxvolume, volume, length, width, height, isbox
             except Exception as e:
                 conn.rollback()
                 print("Errr inserting dimensions into database:", e)

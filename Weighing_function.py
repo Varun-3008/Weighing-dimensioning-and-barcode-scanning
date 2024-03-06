@@ -63,6 +63,7 @@ def read_weight(client,register_address,unit,conn,cursor,uuid_val):
             cursor.execute("UPDATE profiling SET weight_gms = %s, weight_kg = %s WHERE id = %s", (weight_gms,weight_kg,uuid_val))
             conn.commit()
             print("Weight data sucessfully inserted.")
+            return weight_gms,weight_kg
     except Exception as e:
         logging.error(f"Error reading weight data from Modbus device: {e}")
         return None 
