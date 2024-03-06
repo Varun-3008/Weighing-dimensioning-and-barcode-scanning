@@ -1,10 +1,7 @@
-import logging
 import threading
 from pymodbus.client.sync import ModbusSerialClient
-import Barcode_scanning_functions
-import Weighing_function
-import socket 
-import sys
+import psycopg2
+
 
 CamIP = '192.168.1.20'
 CamPort = 3000
@@ -46,37 +43,27 @@ def dimmension_calculations(dimensions):
     # Return extracted values as a tuple
     return volume, length, width, height
 
-def dimension_data(ip, port, dimension_socket):
-    serveradd = (CamIP,CamPort)
+def dimension_data(ip, port, dimension_socket,conn,cursor,uuid_val):
+    serveradd = (ip,port)
     # Create a TCP/IP socket
     try: 
         dimension_socket.connect_ex(serveradd)
-        while True:
-            dimension_socket.sendall(bytes("20|01|0001",'utf-8'))
-            dim_data = dimension_socket.recv(1024)
-            dimensions = dim_data.decode('utf-8')
-            #dimensions = "volume=4402043.000000, length=273.372162, width=150.322479, height=118.000000, center.x=-26.884029, center.y=7.321197, center.z=1190.816406"
-            volume, length, width, height = dimmension_calculations(str(dimensions))
-            return volume, length, width, height 
-                    
+        dimension_socket.sendall(bytes("20|01|0001",'utf-8'))
+        dim_data = dimension_socket.recv(1024)
+        dimensions = dim_data.decode('utf-8')
+        #dimensions = "volume=4402043.000000, length=273.372162, width=150.322479, height=118.000000, center.x=-26.884029, center.y=7.321197, center.z=1190.816406"
+        volume, length, width, height = dimmension_calculations(str(dimensions))
+        
+        if volume:
+            try: 
+                cursor.execute("UPDATE profiling SET length_mm = %s, width_mm = %s, height_mm = %s, boxvolume1 = %s WHERE id = %s ", (length, width, height, volume, uuid_val))
+                conn.commit()
+                print("Dimension data sucessfully inserted.")
+            except Exception as e:
+                conn.rollback()
+                print("Errr inserting dimensions into database:", e)
+                      
     except Exception as e:
         print("Error:", e)
-    
-    finally:
-        # Close the socket
-        dimension_socket.close()
-        
 
-
-def main():
-
-    # Start receiving dimensioning data in a separate thread
-    dimension_thread = threading.Thread(target=dimension_data, args=(CamIP, CamPort))
-    dimension_thread.start()
-
-    # Add your other main functionality here
-    # For example, you can start barcode scanning and weighing processes in separate threads
-
-if __name__ == "__main__":
-    main()
 

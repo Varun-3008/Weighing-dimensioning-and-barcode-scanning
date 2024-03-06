@@ -1,5 +1,6 @@
 import serial
 import logging
+import psycopg2
 
 # Define constants
 baudrate = 9600
@@ -38,17 +39,15 @@ def scan_barcode(ser):
             if barcode_data:
                 logging.info("Scanned Barcode: %s", barcode_data)
                 return barcode_data  # Return scanned barcode data
-            
-            # Process the barcode data as needed
+                # Process the barcode data as needed
             
     except KeyboardInterrupt:
         close_serial_port(ser)
-
-def main():
-    setup_loggingbarcode()
-    ser = open_serial_port()
-    if ser:
-        scan_barcode(ser)
-
-if __name__ == "__main__":
-    main()
+def insert_barcode_data(barcode,conn,cursor,uuid_value):
+    try:
+        cursor.execute("UPDATE profiling SET barcode = %s WHERE id = %s", (barcode, uuid_value))
+        conn.commit()
+        print("Barcode data sucessfully inserted.")
+    except Exception as e:
+        conn.rollback()
+        print("Errr inserting Barcode into database:", e)

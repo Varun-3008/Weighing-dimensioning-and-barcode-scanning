@@ -1,7 +1,6 @@
 import logging
-import keyboard
-import threading
 from pymodbus.client.sync import ModbusSerialClient
+import psycopg2
 
 
 baudrate = 9600
@@ -26,7 +25,7 @@ def weight_calculations(weight):
         
 def setup_loggingweight():
     # Configure logging to log to both file and console
-    logging.basicConfig(filename='data.log', encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(message)s')
+    logging.basicConfig(filename='weightdata.log', encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(message)s')
     console = logging.StreamHandler()
     console.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -51,7 +50,7 @@ def close_modbus_serial_port(client):
         client.close()
         logging.info("Modbus serial port connection closed.")
 
-def read_weight(client, register_address=0, unit = 1):
+def read_weight(client,register_address,unit,conn,cursor,uuid_val):
     try:
         # Read holding register to get weight data
         response = client.read_holding_registers(address=register_address, count=10 , unit=unit)
@@ -61,26 +60,9 @@ def read_weight(client, register_address=0, unit = 1):
         else:     
             weight = weight_calculations(response.registers)
             logging.info(f"Weight read successfully: {weight}")
-            return weight_gms, weight_kg
+            cursor.execute("UPDATE profiling SET weight_gms = %s, weight_kg = %s WHERE id = %s", (weight_gms,weight_kg,uuid_val))
+            conn.commit()
+            print("Weight data sucessfully inserted.")
     except Exception as e:
         logging.error(f"Error reading weight data from Modbus device: {e}")
-        return None
-
-def on_space_pressed():
-    client = open_modbus_serial_port()
-    if client:
-        weight = read_weight(client)
-        close_modbus_serial_port(client)
-        if weight is not None:
-            # Process weight data as needed
-            print("Weight:", weight)
-
-def main():
-    setup_loggingweight()
-    logging.info("Press space to read weight...")
-    keyboard.add_hotkey('space', on_space_pressed)
-    keyboard.wait('esc')
-
-if __name__ == "__main__":
-    main()
- 
+        return None 
