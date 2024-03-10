@@ -43,10 +43,12 @@ def scan_barcode(ser):
             
     except KeyboardInterrupt:
         close_serial_port(ser)
-def insert_barcode_data(barcode,conn,cursor,uuid_value):
+def insert_barcode_data(barcode,conn,cursor,uuid_value,db):
     try:
         cursor.execute("UPDATE profiling SET barcode = %s WHERE id = %s", (barcode, uuid_value))
         conn.commit()
+        db['barcode']  = barcode
+        db['uuid'] = uuid_value
         print("Barcode data sucessfully inserted.")
     except Exception as e:
         conn.rollback()

@@ -26,6 +26,7 @@ unit = 1
 camera_url = "rtsp://admin:Nido@123@192.168.1.64/Streaming/channels/1/"
 save_folder = "C:\\Users\\varun\\OneDrive\\Desktop\\Python\\Weighing-dimensioning-and-barcode-scanning\\Images"
 overlay_save_folder = "C:\\Users\\varun\\OneDrive\\Desktop\\Python\\Weighing-dimensioning-and-barcode-scanning\\Images\\Overlay"
+db = {"barcode" : 0, "uuid": "0", "weight_gms" : 0, "weight_kgs": 0, "boxvolume" : 0, "volume" : 0, "length" : 0, "width" : 0, "height" : 0, "isbox" : False }
 
 def setup_logging():
     Barcode_scanning_functions.setup_loggingbarcode()
@@ -54,15 +55,17 @@ if ser and client:
         barcode = Barcode_scanning_functions.scan_barcode(ser)
         if barcode:  # If a barcode is scanned
             uuid_val = UUID_functions.generate_and_insert_uuid(conn, cursor)
-            time.sleep(0.5)
-            start_new_thread(Barcode_scanning_functions.insert_barcode_data,(barcode,conn,cursor,uuid_val))
-            weight_gms, weight_kg = start_new_thread(Weighing_function.read_weight,(client,registeradd,unit,conn,cursor,uuid_val))
-            start_new_thread(dimension_function.dimension_data,(dimCamIP, dimCamPort, dimension_socket,conn,cursor,uuid_val))
-            start_new_thread(Image_capturing_functions.get_img,(camera_url,save_folder,cursor,conn,uuid_val))
+            start_new_thread(Barcode_scanning_functions.insert_barcode_data,(barcode,conn,cursor,uuid_val,db))
+            start_new_thread(Weighing_function.read_weight,(client,registeradd,unit,conn,cursor,uuid_val,db))
+            start_new_thread(dimension_function.dimension_data,(dimCamIP, dimCamPort, dimension_socket,conn,cursor,uuid_val,db))
+            start_new_thread(Image_capturing_functions.get_img,(camera_url,save_folder,cursor,conn,uuid_val,overlay_save_folder,db))
+
+
+            
 
 
 
     #weight_gms, weight_kg = 
     #boxvolume, volume, length, width, height, isbox = 
-    cursor.close()
-    conn.close()
+cursor.close()
+conn.close()

@@ -1,11 +1,11 @@
-import threading
+import _thread
 from pymodbus.client.sync import ModbusSerialClient
 import psycopg2
-
+import logging
 
 CamIP = '192.168.1.20'
 CamPort = 3000
-
+    
 def dimmension_calculations(dimensions):
     # Find the substring containing the dimensions
     start_index = dimensions.find("volume=")
@@ -44,9 +44,11 @@ def dimmension_calculations(dimensions):
     boxvolume = length*width*height
     if volume/boxvolume >0.9:
         isbox = True
+    else:
+        isbox = False
     return boxvolume, volume, length, width, height, isbox
 
-def dimension_data(ip, port, dimension_socket,conn,cursor,uuid_val):
+def dimension_data(ip, port, dimension_socket,conn,cursor,uuid_val,db):
     serveradd = (ip,port)
     # Create a TCP/IP socket
     try: 
@@ -61,8 +63,14 @@ def dimension_data(ip, port, dimension_socket,conn,cursor,uuid_val):
             try: 
                 cursor.execute("UPDATE profiling SET length_mm = %s, width_mm = %s, height_mm = %s, realvolume1 = %s, boxvolume1 = %s, isbox = %s WHERE id = %s", (length, width, height, volume, boxvolume, isbox,uuid_val))
                 conn.commit()
+                db['boxvolume'] = boxvolume
+                db['volume'] = volume
+                db['length'] = length
+                db['width'] = width
+                db['height'] = height
+                db['isbox'] = isbox
                 print("Dimension data sucessfully inserted.")
-                return boxvolume, volume, length, width, height, isbox
+
             except Exception as e:
                 conn.rollback()
                 print("Errr inserting dimensions into database:", e)

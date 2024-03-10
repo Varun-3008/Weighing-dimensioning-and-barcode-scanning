@@ -1,6 +1,7 @@
 import logging
 from pymodbus.client.sync import ModbusSerialClient
 import psycopg2
+from _thread import start_new_thread
 
 
 baudrate = 9600
@@ -18,6 +19,7 @@ def weight_calculations(weight):
 
         weight_gms = "{:.2f}".format(weightgms)
         weight_kg = "{:.2f}".format(weightkg)
+        return weight_gms, weight_kg
         logging.info("Weight for- GUID: %s, Weight in grams: %s, Weight in Kg: %s", weight_gms, weight_kg)
     else:
         logging.error("Invalid weight data format")
@@ -50,7 +52,7 @@ def close_modbus_serial_port(client):
         client.close()
         logging.info("Modbus serial port connection closed.")
 
-def read_weight(client,register_address,unit,conn,cursor,uuid_val):
+def read_weight(client,register_address,unit,conn,cursor,uuid_val,db):
     try:
         # Read holding register to get weight data
         response = client.read_holding_registers(address=register_address, count=10 , unit=unit)
@@ -58,12 +60,13 @@ def read_weight(client,register_address,unit,conn,cursor,uuid_val):
             logging.error("Failed to read weight data from Modbus device.")
             return None
         else:     
-            weight = weight_calculations(response.registers)
-            logging.info(f"Weight read successfully: {weight}")
-            cursor.execute("UPDATE profiling SET weight_gms = %s, weight_kg = %s WHERE id = %s", (weight_gms,weight_kg,uuid_val))
+            weight_gms, weight_kg = weight_calculations(response.registers)
+            logging.info(f"Weight read successfully: {weight_gms, weight_kg}")
+            db['weight_gms'] = weight_gms
+            db['weight_kgs'] = weight_kg
+            start_new_thread(cursor.execute,("UPDATE profiling SET weight_gms = %s, weight_kg = %s WHERE id = %s", (weight_gms,weight_kg,uuid_val)))
             conn.commit()
             print("Weight data sucessfully inserted.")
-            return weight_gms,weight_kg
     except Exception as e:
         logging.error(f"Error reading weight data from Modbus device: {e}")
         return None 
