@@ -6,7 +6,7 @@ from _thread import start_new_thread
 
 image_path = None
 # Open a connection to the camera
-def get_img(camera_url,save_folder,cursor,conn,uuid,overlay_save_folder,db):
+def get_img(camera_url,save_folder,cursor,conn,uuid,overlay_save_folder,db,UI_save_folder):
     cap = cv.VideoCapture(camera_url)
 
     # Check if the camera is opened successfully
@@ -26,7 +26,7 @@ def get_img(camera_url,save_folder,cursor,conn,uuid,overlay_save_folder,db):
     image_name = f"{uuid}captured_image_{timestamp}.jpg"
     image_path = os.path.join(save_folder, image_name)
     cv.imwrite(image_path, frame)
-    get_overlay_image(uuid,overlay_save_folder,timestamp,db)
+    get_overlay_image(uuid,overlay_save_folder,timestamp,db,UI_save_folder)
     cursor.execute("UPDATE profiling SET timestamp = %s WHERE id = %s", (timestamp,uuid))
     conn.commit()
 
@@ -35,7 +35,7 @@ def get_img(camera_url,save_folder,cursor,conn,uuid,overlay_save_folder,db):
     cap.release()
     print("Image captured successfully and saved to:", image_path)
     
-def get_overlay_image(uuid_val,overlay_save_folder,timestamp,db):
+def get_overlay_image(uuid_val,overlay_save_folder,timestamp,db,UI_save_folder):
     # Get a list of all files in the current directory
     files = os.listdir("C:\\Users\\varun\\OneDrive\\Desktop\\Python\\Weighing-dimensioning-and-barcode-scanning\\Images")
     
@@ -57,6 +57,8 @@ def get_overlay_image(uuid_val,overlay_save_folder,timestamp,db):
         start_new_thread(cv.putText,(image,f"volume = {db['volume']}, box_volume = {db['boxvolume']}",(10,150),cv.FONT_HERSHEY_COMPLEX,0.75,(0,255,0),2))
         overlay_image_name =  f"{uuid_val}Overlayed_image_{timestamp}.jpg"
         save_location = os.path.join(overlay_save_folder,overlay_image_name)
+        UI_save_location = os.path.join(UI_save_folder,overlay_image_name)
         cv.imwrite(save_location, image)
+        cv.imwrite(UI_save_location,image)
     else:
         print(f"Error: Image file starting with '{uuid_val}' not found.")
